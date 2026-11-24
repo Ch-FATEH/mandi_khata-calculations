@@ -1,0 +1,8 @@
+{
+  "name": "Mandi Khata — Commission Shop Calculator",
+  "description": "Offline-first agricultural commission shop (Aarhti) sales, purchase, party khata ledger, digital parchi, and mandi calculator PWA for Pakistan.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
