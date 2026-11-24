@@ -1,22 +1,48 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
 
+@font-face {
+  font-family: 'Alvi Nastaleeq';
+  src: local('Alvi Nastaleeq'), local('AlviNastaleeq');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Jameel Noori Nastaleeq';
+  src: local('Jameel Noori Nastaleeq'), local('JameelNooriNastaleeq');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer base {
   html {
-    font-family: 'Noto Naskh Arabic', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    font-family: 'Alvi Nastaleeq', 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', 'Noto Naskh Arabic', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+
+  html[dir='rtl'] body {
+    line-height: 2;
   }
 
   html[dir='ltr'] {
     font-family: 'Plus Jakarta Sans', 'Noto Naskh Arabic', system-ui, -apple-system, sans-serif;
   }
+
+  html[dir='ltr'] body {
+    line-height: 1.5;
+  }
 }
 
 .font-urdu-display {
-  font-family: 'Gulzar', 'Noto Naskh Arabic', serif;
+  font-family: 'Alvi Nastaleeq', 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', 'Gulzar', 'Noto Naskh Arabic', serif;
+  line-height: 2;
 }
 
 .font-urdu-body {
-  font-family: 'Noto Naskh Arabic', serif;
+  font-family: 'Alvi Nastaleeq', 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', 'Noto Naskh Arabic', serif;
+  line-height: 2;
 }
 
 .ltr-num {
@@ -24,10 +50,87 @@
   unicode-bidi: isolate;
   font-variant-numeric: tabular-nums;
   font-family: 'JetBrains Mono', 'Plus Jakarta Sans', monospace;
+  line-height: 1.35;
+}
+
+/* Prevent .ltr-num's direction:ltr from flipping text-start/text-end inside RTL tables and cards */
+html[dir='rtl'] td.ltr-num.text-end,
+html[dir='rtl'] th.ltr-num.text-end {
+  text-align: left;
+}
+
+html[dir='rtl'] td.ltr-num:not(.text-end):not(.text-center):not(.text-left):not(.text-right),
+html[dir='rtl'] p.ltr-num:not(.text-end):not(.text-center):not(.text-left):not(.text-right) {
+  text-align: right;
 }
 
 .tabular-nums {
   font-variant-numeric: tabular-nums;
+}
+
+/* Brand Logo Animations */
+@keyframes wheatSway {
+  0%, 100% {
+    transform: rotate(-2.5deg);
+  }
+  50% {
+    transform: rotate(2.5deg);
+  }
+}
+
+@keyframes goldShine {
+  0% {
+    transform: translateX(-140%) skewX(-20deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.45;
+  }
+  60% {
+    transform: translateX(160%) skewX(-20deg);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(160%) skewX(-20deg);
+    opacity: 0;
+  }
+}
+
+@keyframes splashGlow {
+  0% {
+    transform: scale(0.86);
+    opacity: 0;
+  }
+  45% {
+    transform: scale(1.03);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-wheat-sway {
+  transform-box: fill-box;
+  transform-origin: bottom center;
+  animation: wheatSway 3.6s ease-in-out infinite;
+}
+
+.animate-gold-shine {
+  animation: goldShine 4.5s ease-in-out infinite;
+}
+
+.animate-splash-pop {
+  animation: splashGlow 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-wheat-sway,
+  .animate-gold-shine,
+  .animate-splash-pop {
+    animation: none !important;
+  }
 }
 
 @media print {

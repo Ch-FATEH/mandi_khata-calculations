@@ -1,11 +1,17 @@
 import {
   AppLanguage,
   AppSettings,
+  AutoBackupSettings,
   BackupPayload,
   CropItem,
+  LocalSnapshot,
+  PartyMeta,
   PartyPayment,
   PurchaseRecord,
+  QuickNote,
   RefCounters,
+  RoznamchaEntry,
+  RoznamchaSettings,
   SaleRecord,
   ThemeMode,
 } from '../types/mandi';
@@ -22,6 +28,16 @@ export const STORAGE_KEYS = {
   LOGO: 'mandi_khata_logo_v1',
   SIGNATURE: 'mandi_khata_signature_v1',
   SETUP_DONE: 'mandi_khata_setup_done_v1',
+  // Additive v2 keys
+  PARTY_META: 'mandi_khata_parties_meta_v1',
+  AUTO_BACKUP: 'mandi_khata_auto_backup_v1',
+  LOCAL_SNAPSHOTS: 'mandi_khata_local_snapshots_v1',
+  DISMISSED_ADS: 'mandi_khata_dismissed_ads_v1',
+  // Additive v3 Roznamcha keys
+  ROZNAMCHA_ENTRIES: 'mandi_khata_roznamcha_entries_v1',
+  ROZNAMCHA_SETTINGS: 'mandi_khata_roznamcha_settings_v1',
+  // Additive v4 Quick Notes key
+  QUICK_NOTES: 'mandi_khata_quick_notes_v1',
 } as const;
 
 export const DEFAULT_CROPS: CropItem[] = [
@@ -68,6 +84,10 @@ export const DEFAULT_SETTINGS: AppSettings = {
   ],
   address: '',
   city: '',
+  shopMapLink: '',
+  shopLat: null,
+  shopLng: null,
+  showMapLinkOnReceipt: false,
 
   commissionPercent: 0,
   commissionMode: 'off',
@@ -100,6 +120,40 @@ export const DEFAULT_SETTINGS: AppSettings = {
 export const DEFAULT_COUNTERS: RefCounters = {
   salesNext: 1,
   purchaseNext: 1,
+};
+
+export const DEFAULT_AUTO_BACKUP: AutoBackupSettings = {
+  frequency: 'daily',
+  googleDriveEnabled: true,
+  lastBackupAt: null,
+  lastBackupSizeBytes: 0,
+  lastDriveBackupAt: null,
+  lastDriveFileName: null,
+  lastDriveFileId: null,
+  pendingDriveUpload: false,
+};
+
+export const DEFAULT_ROZNAMCHA_SETTINGS: RoznamchaSettings = {
+  openingBalance: 0,
+  inCategories: [
+    'فصل/منجی وصولی',
+    'پارٹی سے وصولی',
+    'کمیشن وصولی',
+    'قرض لیا',
+    'ذاتی جمع',
+    'دیگر آمد',
+  ],
+  outCategories: [
+    'منجی/فصل خریدی',
+    'پلے داری/مزدوری',
+    'تیل/ڈیزل',
+    'گاڑی کرایہ/لوڈنگ',
+    'چائے/کھانا',
+    'دکان خرچ',
+    'بیعانہ دیا',
+    'پارٹی کو ادائیگی',
+    'دیگر خرچ',
+  ],
 };
 
 function safeGet<T>(key: string, fallback: T): T {
@@ -145,6 +199,100 @@ export function loadLedger(): PartyPayment[] {
 
 export function saveLedger(ledger: PartyPayment[]): void {
   safeSet(STORAGE_KEYS.LEDGER, ledger);
+}
+
+export function loadPartyMeta(): Record<string, PartyMeta> {
+  const data = safeGet<Record<string, PartyMeta>>(STORAGE_KEYS.PARTY_META, {});
+  return data && typeof data === 'object' ? data : {};
+}
+
+export function savePartyMeta(meta: Record<string, PartyMeta>): void {
+  safeSet(STORAGE_KEYS.PARTY_META, meta);
+}
+
+export function loadAutoBackupSettings(): AutoBackupSettings {
+  const stored = safeGet<Partial<AutoBackupSettings>>(STORAGE_KEYS.AUTO_BACKUP, {});
+  return { ...DEFAULT_AUTO_BACKUP, ...stored };
+}
+
+export function saveAutoBackupSettings(cfg: AutoBackupSettings): void {
+  safeSet(STORAGE_KEYS.AUTO_BACKUP, cfg);
+}
+
+export function loadLocalSnapshots(): LocalSnapshot[] {
+  const list = safeGet<LocalSnapshot[]>(STORAGE_KEYS.LOCAL_SNAPSHOTS, []);
+  return Array.isArray(list) ? list : [];
+}
+
+export function saveLocalSnapshots(list: LocalSnapshot[]): void {
+  safeSet(STORAGE_KEYS.LOCAL_SNAPSHOTS, list.slice(0, 3));
+}
+
+export function pushLocalSnapshot(payload: BackupPayload): {
+  snapshots: LocalSnapshot[];
+  latest: LocalSnapshot;
+} {
+  const existing = loadLocalSnapshots();
+  const serialized = JSON.stringify(payload);
+  const sizeBytes = new Blob([serialized]).size;
+  const latest: LocalSnapshot = {
+    id: `snap_${Date.now()}`,
+    createdAt: new Date().toISOString(),
+    sizeBytes,
+    payload,
+  };
+  const next = [latest, ...existing].slice(0, 3);
+  saveLocalSnapshots(next);
+  return { snapshots: next, latest };
+}
+
+export function loadDismissedAdIds(): string[] {
+  const list = safeGet<string[]>(STORAGE_KEYS.DISMISSED_ADS, []);
+  return Array.isArray(list) ? list : [];
+}
+
+export function saveDismissedAdIds(ids: string[]): void {
+  safeSet(STORAGE_KEYS.DISMISSED_ADS, ids);
+}
+
+export function loadRoznamchaEntries(): RoznamchaEntry[] {
+  const list = safeGet<RoznamchaEntry[]>(STORAGE_KEYS.ROZNAMCHA_ENTRIES, []);
+  return Array.isArray(list) ? list : [];
+}
+
+export function saveRoznamchaEntries(entries: RoznamchaEntry[]): void {
+  safeSet(STORAGE_KEYS.ROZNAMCHA_ENTRIES, entries);
+}
+
+export function loadRoznamchaSettings(): RoznamchaSettings {
+  const stored = safeGet<Partial<RoznamchaSettings>>(STORAGE_KEYS.ROZNAMCHA_SETTINGS, {});
+  return {
+    openingBalance:
+      typeof stored.openingBalance === 'number' && Number.isFinite(stored.openingBalance)
+        ? stored.openingBalance
+        : 0,
+    inCategories:
+      Array.isArray(stored.inCategories) && stored.inCategories.length > 0
+        ? stored.inCategories
+        : DEFAULT_ROZNAMCHA_SETTINGS.inCategories,
+    outCategories:
+      Array.isArray(stored.outCategories) && stored.outCategories.length > 0
+        ? stored.outCategories
+        : DEFAULT_ROZNAMCHA_SETTINGS.outCategories,
+  };
+}
+
+export function saveRoznamchaSettings(settings: RoznamchaSettings): void {
+  safeSet(STORAGE_KEYS.ROZNAMCHA_SETTINGS, settings);
+}
+
+export function loadQuickNotes(): QuickNote[] {
+  const list = safeGet<QuickNote[]>(STORAGE_KEYS.QUICK_NOTES, []);
+  return Array.isArray(list) ? list : [];
+}
+
+export function saveQuickNotes(notes: QuickNote[]): void {
+  safeSet(STORAGE_KEYS.QUICK_NOTES, notes);
 }
 
 export function loadCounters(settings: AppSettings): RefCounters {
@@ -307,10 +455,38 @@ export function saveSetupDone(done: boolean): void {
   }
 }
 
+export function isAutoBackupDue(
+  autoBackup: AutoBackupSettings,
+  nowMs: number = Date.now()
+): boolean {
+  if (autoBackup.frequency === 'never') return false;
+  if (autoBackup.pendingDriveUpload) return true;
+  if (!autoBackup.lastBackupAt) return true;
+  const lastMs = Date.parse(autoBackup.lastBackupAt);
+  if (!Number.isFinite(lastMs)) return true;
+
+  const elapsedHours = (nowMs - lastMs) / (1000 * 60 * 60);
+  if (autoBackup.frequency === 'daily') return elapsedHours >= 24;
+  if (autoBackup.frequency === 'weekly') return elapsedHours >= 24 * 7;
+  if (autoBackup.frequency === 'monthly') return elapsedHours >= 24 * 30;
+  return false;
+}
+
+export function formatBytes(bytes: number): string {
+  if (!Number.isFinite(bytes) || bytes <= 0) return '0 B';
+  if (bytes < 1024) return `${Math.round(bytes)} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
+}
+
 export function createBackupPayload(params: {
   sales: SaleRecord[];
   purchases: PurchaseRecord[];
   ledger: PartyPayment[];
+  partyMeta?: Record<string, PartyMeta>;
+  roznamchaEntries?: RoznamchaEntry[];
+  roznamchaSettings?: RoznamchaSettings;
+  quickNotes?: QuickNote[];
   counters: RefCounters;
   settings: AppSettings;
   theme: ThemeMode;
@@ -319,7 +495,7 @@ export function createBackupPayload(params: {
   signature: string | null;
 }): BackupPayload {
   return {
-    version: 1,
+    version: 3,
     exportedAt: new Date().toISOString(),
     ...params,
   };
@@ -347,6 +523,21 @@ export function validateBackupPayload(raw: unknown): {
     sales: obj.sales as SaleRecord[],
     purchases: obj.purchases as PurchaseRecord[],
     ledger: Array.isArray(obj.ledger) ? (obj.ledger as PartyPayment[]) : [],
+    partyMeta:
+      obj.partyMeta && typeof obj.partyMeta === 'object'
+        ? (obj.partyMeta as Record<string, PartyMeta>)
+        : {},
+    roznamchaEntries: Array.isArray(obj.roznamchaEntries)
+      ? (obj.roznamchaEntries as RoznamchaEntry[])
+      : [],
+    roznamchaSettings:
+      obj.roznamchaSettings && typeof obj.roznamchaSettings === 'object'
+        ? {
+            ...DEFAULT_ROZNAMCHA_SETTINGS,
+            ...(obj.roznamchaSettings as Partial<RoznamchaSettings>),
+          }
+        : undefined,
+    quickNotes: Array.isArray(obj.quickNotes) ? (obj.quickNotes as QuickNote[]) : [],
     counters:
       obj.counters && typeof obj.counters === 'object'
         ? (obj.counters as RefCounters)
@@ -366,6 +557,9 @@ export function mergeBackupData(
     sales: SaleRecord[];
     purchases: PurchaseRecord[];
     ledger: PartyPayment[];
+    partyMeta?: Record<string, PartyMeta>;
+    roznamchaEntries?: RoznamchaEntry[];
+    quickNotes?: QuickNote[];
     counters: RefCounters;
   },
   incoming: BackupPayload
@@ -373,6 +567,9 @@ export function mergeBackupData(
   sales: SaleRecord[];
   purchases: PurchaseRecord[];
   ledger: PartyPayment[];
+  partyMeta: Record<string, PartyMeta>;
+  roznamchaEntries: RoznamchaEntry[];
+  quickNotes: QuickNote[];
   counters: RefCounters;
 } {
   const mergeById = <T extends { id: string }>(existing: T[], added: T[]): T[] => {
@@ -388,6 +585,15 @@ export function mergeBackupData(
     sales: mergeById(current.sales, incoming.sales),
     purchases: mergeById(current.purchases, incoming.purchases),
     ledger: mergeById(current.ledger, incoming.ledger),
+    partyMeta: {
+      ...(incoming.partyMeta || {}),
+      ...(current.partyMeta || {}),
+    },
+    roznamchaEntries: mergeById(
+      current.roznamchaEntries || [],
+      incoming.roznamchaEntries || []
+    ),
+    quickNotes: mergeById(current.quickNotes || [], incoming.quickNotes || []),
     counters: {
       salesNext: Math.max(current.counters.salesNext, incoming.counters.salesNext || 1),
       purchaseNext: Math.max(current.counters.purchaseNext, incoming.counters.purchaseNext || 1),

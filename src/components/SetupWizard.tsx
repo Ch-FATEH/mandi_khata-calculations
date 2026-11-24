@@ -300,6 +300,62 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({
                   className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-base text-slate-900 focus:border-[#0B7D50] focus:outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
                 />
               </div>
+              <div className="space-y-2 rounded-2xl border border-slate-200 bg-slate-50 p-3.5 dark:border-slate-800 dark:bg-slate-800/40">
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300">
+                  {t.googleMapsLinkLabel}
+                </label>
+                <input
+                  type="url"
+                  dir="ltr"
+                  value={draft.shopMapLink || ''}
+                  onChange={(e) => commitDraft({ ...draft, shopMapLink: e.target.value })}
+                  placeholder="https://maps.google.com/?q=..."
+                  className="ltr-num w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 focus:border-[#0B7D50] focus:outline-none dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
+                />
+                <div className="flex flex-wrap items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (!navigator.geolocation) return;
+                      navigator.geolocation.getCurrentPosition(
+                        (pos) => {
+                          const lat = Number(pos.coords.latitude.toFixed(6));
+                          const lng = Number(pos.coords.longitude.toFixed(6));
+                          const mapsUrl = `https://www.google.com/maps?q=${lat},${lng}`;
+                          commitDraft({
+                            ...draft,
+                            shopLat: lat,
+                            shopLng: lng,
+                            shopMapLink: draft.shopMapLink?.trim() || mapsUrl,
+                          });
+                        },
+                        () => {
+                          // User denied or unavailable; manual link still works
+                        },
+                        { enableHighAccuracy: true, timeout: 8000 }
+                      );
+                    }}
+                    className="inline-flex min-h-[38px] items-center gap-1.5 rounded-xl border border-[#0B7D50] bg-white px-3 py-1.5 text-xs font-bold text-[#0B7D50] hover:bg-emerald-50 dark:bg-slate-900 dark:text-emerald-400"
+                  >
+                    <MapPin className="h-3.5 w-3.5" />
+                    <span>{t.useCurrentLocationBtn}</span>
+                  </button>
+                  {(draft.shopMapLink?.trim() || (draft.shopLat && draft.shopLng)) && (
+                    <a
+                      href={
+                        draft.shopMapLink?.trim() ||
+                        `https://www.google.com/maps?q=${draft.shopLat},${draft.shopLng}`
+                      }
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex min-h-[38px] items-center gap-1.5 rounded-xl bg-[#0B7D50] px-3 py-1.5 text-xs font-bold text-white"
+                    >
+                      <MapPin className="h-3.5 w-3.5 text-[#F2CC70]" />
+                      <span>{t.openInMapsBtn}</span>
+                    </a>
+                  )}
+                </div>
+              </div>
             </div>
           )}
 

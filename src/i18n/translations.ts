@@ -10,6 +10,12 @@ export interface Translations {
   navCalculators: string;
   navReports: string;
   navSettings: string;
+  navRoznamcha: string;
+  navAbout: string;
+  navTutorial: string;
+  navPremium: string;
+  navAdmin: string;
+  moreMenu: string;
   installApp: string;
   installIOS: string;
   iosGuideTitle: string;
@@ -89,6 +95,15 @@ export interface Translations {
   kgUnit: string;
   maundUnit: string;
   bagsUnit: string;
+  totalViewLabel: string;
+  detailViewLabel: string;
+  tapToViewDetails: string;
+  summaryViewLabel: string;
+  detailedViewLabel: string;
+  todayRoznamchaCard: string;
+  roznamchaAaye: string;
+  roznamchaGaye: string;
+  roznamchaKulBaqi: string;
 
   // Sales & Purchase Register
   salesRegisterTitle: string;
@@ -133,7 +148,7 @@ export interface Translations {
   errRateInvalid: string;
   savedToast: string;
 
-  // Party Khata
+  // Party Khata & Payment Tracking
   khataTitle: string;
   khataSubtitle: string;
   searchPartyPlaceholder: string;
@@ -155,6 +170,28 @@ export interface Translations {
   colJama: string;
   colBalance: string;
   deletePaymentConfirm: string;
+  kulRaqamLabel: string;
+  wasoolPaidLabel: string;
+  baqiRaqamLabel: string;
+  statusClear: string;
+  statusPartial: string;
+  statusPending: string;
+  statusOverdue: string;
+  filterAll: string;
+  filterPending: string;
+  filterClear: string;
+  filterOverdue: string;
+  wadaDateLabel: string;
+  partyMobileLabel: string;
+  whatsappReminderBtn: string;
+  addPhoneForReminderMsg: string;
+  paymentMethodLabel: string;
+  methodCash: string;
+  methodBank: string;
+  methodJazzCash: string;
+  methodEasyPaisa: string;
+  editPaymentTitle: string;
+  roznamchaReferenceNote: string;
 
   // Receipt Slip
   salesSlipTitle: string;
@@ -194,6 +231,7 @@ export interface Translations {
   reportWeightTab: string;
   reportCommissionTab: string;
   reportMizanTab: string;
+  reportRoznamchaTab: string;
   fromDate: string;
   toDate: string;
   exportCsv: string;
@@ -207,7 +245,7 @@ export interface Translations {
   totalMizanSum: string;
   reportsDisclaimer: string;
 
-  // Settings & Backup
+  // Settings, Auth, Location, Backup & Drive
   settingsTitle: string;
   reopenWizard: string;
   shopProfileSection: string;
@@ -264,6 +302,139 @@ export interface Translations {
   backupInvalidError: string;
   backupSuccessMsg: string;
   settingsSavedNote: string;
+  continueWithGoogle: string;
+  guestModeLabel: string;
+  guestSkipHint: string;
+  signOutBtn: string;
+  googleLoginNotConfigured: string;
+  signedInAs: string;
+  googleAccountSection: string;
+  autoBackupFreqLabel: string;
+  freqDaily: string;
+  freqWeekly: string;
+  freqMonthly: string;
+  freqNever: string;
+  backupNowBtn: string;
+  lastBackupLabel: string;
+  backupSizeLabel: string;
+  neverBackedUp: string;
+  localSnapshotsTitle: string;
+  restoreSnapshotBtn: string;
+  driveBackupToggle: string;
+  driveBackupNowBtn: string;
+  driveRestoreBtn: string;
+  driveBackupsListTitle: string;
+  driveFolderLabel: string;
+  noDriveBackups: string;
+  driveOfflineQueued: string;
+  driveConnectedBadge: string;
+  driveReconnectHint: string;
+  driveRestorePromptTitle: string;
+  driveRestorePromptDesc: string;
+  restoreLaterBtn: string;
+  shopLocationSection: string;
+  googleMapsLinkLabel: string;
+  useCurrentLocationBtn: string;
+  locationLoading: string;
+  locationSavedMsg: string;
+  locationErrorMsg: string;
+  openInMapsBtn: string;
+  showMapOnReceiptToggle: string;
+
+  // About / EagleX / Tutorial / Premium AI / Admin
+  aboutTitle: string;
+  developerTeamLabel: string;
+  developerContactPitch: string;
+  whatsappContactBtn: string;
+  callContactBtn: string;
+  footerCredit: string;
+  shopProfileCardTitle: string;
+  tutorialTitle: string;
+  tutorialSubtitle: string;
+  tutorialVideoTitle: string;
+  videoComingSoon: string;
+  faqTitle: string;
+  premiumTitle: string;
+  premiumSubtitle: string;
+  aiDailySummaryTitle: string;
+  aiGenerateSummaryBtn: string;
+  aiPremiumComingSoon: string;
+  aiDraftConfirmTitle: string;
+  aiConfirmSaveBtn: string;
+  aiDiscardDraftBtn: string;
+  aiChatPlaceholder: string;
+  aiSendBtn: string;
+  aiDisabledByAdmin: string;
+  adminTitle: string;
+  adminConnectSessionBtn: string;
+  adminAdsSection: string;
+  adminAddAdBtn: string;
+  adminAdTitle: string;
+  adminAdDesc: string;
+  adminAdBtnText: string;
+  adminAdBtnLink: string;
+  adminAdImgUrl: string;
+  adminAdActive: string;
+  adminAdStartDate: string;
+  adminAdEndDate: string;
+  adminAppConfigSection: string;
+  adminYoutubeUrlLabel: string;
+  adminAiMasterToggle: string;
+  adminAiDailyToggle: string;
+  adminAiDraftToggle: string;
+  adminAiChatToggle: string;
+  sponsoredLabel: string;
+  dismissAd: string;
+
+  // Roznamcha
+  roznamchaTitle: string;
+  roznamchaSubtitle: string;
+  roznamchaLeftTitle: string;
+  roznamchaRightTitle: string;
+  roznamchaAddInBtn: string;
+  roznamchaAddOutBtn: string;
+  pichlaBaqiLabel: string;
+  aajKulAayeLabel: string;
+  aajKulGayeLabel: string;
+  aajKaBaqiLabel: string;
+  kulBaqiLabel: string;
+  openingBalanceLabel: string;
+  tafseelLabel: string;
+  tafseelPlaceholder: string;
+  categoryLabel: string;
+  optionalPartyLabel: string;
+  roznamchaDayView: string;
+  roznamchaSingleListView: string;
+  roznamchaMonthView: string;
+  roznamchaSearchTab: string;
+  roznamchaCategoryReport: string;
+  roznamchaSettingsTab: string;
+  addCategoryBtn: string;
+  inCategoriesTitle: string;
+  outCategoriesTitle: string;
+  deleteRoznamchaConfirm: string;
+  roznamchaPrevDay: string;
+  roznamchaNextDay: string;
+  roznamchaGoToday: string;
+  runningBalanceCol: string;
+
+  // Dashboard Quick Notes
+  quickNotesTitle: string;
+  quickNotesSubtitle: string;
+  quickNotesPlaceholder: string;
+  quickNotesAddBtn: string;
+  quickNotesTagReminder: string;
+  quickNotesTagTask: string;
+  quickNotesTagRate: string;
+  quickNotesFilterAll: string;
+  quickNotesFilterActive: string;
+  quickNotesFilterRates: string;
+  quickNotesClearDone: string;
+  quickNotesEmpty: string;
+  quickNotesPinLabel: string;
+  quickNotesUnpinLabel: string;
+  quickNotesDoneLabel: string;
+  quickNotesUndoLabel: string;
 }
 
 export const TRANSLATIONS: Record<AppLanguage, Translations> = {
@@ -277,6 +448,12 @@ export const TRANSLATIONS: Record<AppLanguage, Translations> = {
     navCalculators: 'کیلکولیٹر',
     navReports: 'رپورٹس',
     navSettings: 'سیٹنگز',
+    navRoznamcha: 'روزنامچہ',
+    navAbout: 'تعارف / مدد',
+    navTutorial: 'سیکھیں',
+    navPremium: 'پریمیم AI',
+    navAdmin: 'ایڈمن',
+    moreMenu: 'مزید',
     installApp: 'ایپ انسٹال کریں',
     installIOS: 'آئی فون پر انسٹال',
     iosGuideTitle: 'آئی فون / آئی پیڈ پر انسٹال کریں',
@@ -316,8 +493,8 @@ export const TRANSLATIONS: Record<AppLanguage, Translations> = {
     ownerLabel: 'مالک',
     ownerName: 'نام',
     ownerMobile: 'موبائل نمبر',
-    step3Title: 'دکان کا پتہ',
-    step3Desc: 'مکمل پتہ اور شہر درج کریں جو پرچی کے نیچے پرنٹ ہوگا۔',
+    step3Title: 'دکان کا پتہ اور لوکیشن',
+    step3Desc: 'مکمل پتہ، شہر اور اختیاری گوگل میپس لوکیشن درج کریں۔',
     addressLabel: 'مکمل پتہ',
     cityLabel: 'شہر / ضلع',
     step4Title: 'لوگو اور دستخط',
@@ -354,6 +531,15 @@ export const TRANSLATIONS: Record<AppLanguage, Translations> = {
     kgUnit: 'کلو',
     maundUnit: 'من',
     bagsUnit: 'بوری',
+    totalViewLabel: 'ٹوٹل ویو',
+    detailViewLabel: 'تفصیل ویو',
+    tapToViewDetails: 'تفصیل دیکھنے کے لیے کلک کریں',
+    summaryViewLabel: 'خلاصہ (ٹوٹل)',
+    detailedViewLabel: 'مکمل تفصیل (ہر اندراج)',
+    todayRoznamchaCard: 'آج کا روزنامچہ',
+    roznamchaAaye: 'پیسے آئے',
+    roznamchaGaye: 'پیسے گئے',
+    roznamchaKulBaqi: 'کل باقی',
 
     salesRegisterTitle: 'فروخت رجسٹر',
     purchaseRegisterTitle: 'خرید رجسٹر',
@@ -397,8 +583,8 @@ export const TRANSLATIONS: Record<AppLanguage, Translations> = {
     errRateInvalid: 'براہ کرم ریٹ فی من درج کریں۔',
     savedToast: 'ریکارڈ کامیابی سے محفوظ ہو گیا',
 
-    khataTitle: 'پارٹی کھاتہ لیجر',
-    khataSubtitle: 'تمام خریداروں اور زمینداروں کا لین دین اور بقایہ جات',
+    khataTitle: 'پارٹی کھاتہ اور وصولی',
+    khataSubtitle: 'تمام خریداروں اور زمینداروں کی کل رقم، وصولی، باقی اور وعدہ تاریخ',
     searchPartyPlaceholder: 'پارٹی کا نام تلاش کریں...',
     noPartiesYet: 'ابھی کسی پارٹی کا ریکارڈ موجود نہیں۔ فروخت یا خرید درج کرنے پر کھاتہ خود بخود بن جائے گا۔',
     totalBusiness: 'کل کاروبار',
@@ -406,18 +592,40 @@ export const TRANSLATIONS: Record<AppLanguage, Translations> = {
     payableLabel: 'ادائیگی (جمع)',
     settledLabel: 'حساب برابر',
     backToParties: 'تمام پارٹیاں',
-    addPaymentEntry: 'نقد / بینک اندراج (جمع / بنام)',
+    addPaymentEntry: 'ادائیگی شامل کریں (جمع / بنام)',
     jamaOption: 'جمع (وصولی)',
     banamOption: 'بنام (ادائیگی)',
     amountRs: 'رقم (روپے)',
     paymentNotePlaceholder: 'تفصیل مثلاً نقد یا بینک ٹرانسفر...',
-    saveEntry: 'اندراج محفوظ کریں',
+    saveEntry: 'محفوظ کریں',
     colDate: 'تاریخ',
     colParticulars: 'تفصیل',
     colBanam: 'بنام',
     colJama: 'جمع',
     colBalance: 'میزان / بقایا',
-    deletePaymentConfirm: 'کیا آپ واقعی یہ نقد اندراج حذف کرنا چاہتے ہیں؟',
+    deletePaymentConfirm: 'کیا آپ واقعی یہ ادائیگی حذف کرنا چاہتے ہیں؟',
+    kulRaqamLabel: 'کل رقم',
+    wasoolPaidLabel: 'وصول / ادا شدہ',
+    baqiRaqamLabel: 'باقی رقم',
+    statusClear: 'مکمل (CLEAR)',
+    statusPartial: 'جزوی (PARTIAL)',
+    statusPending: 'بقایا (PENDING)',
+    statusOverdue: 'میعاد گزر گئی (OVERDUE)',
+    filterAll: 'سب',
+    filterPending: 'باقی والے',
+    filterClear: 'کلیئر',
+    filterOverdue: 'اوور ڈیو',
+    wadaDateLabel: 'وعدہ تاریخ',
+    partyMobileLabel: 'پارٹی موبائل نمبر',
+    whatsappReminderBtn: 'واٹس ایپ یاددہانی',
+    addPhoneForReminderMsg: 'یاددہانی بھیجنے کے لیے پہلے پارٹی کا موبائل نمبر درج کریں۔',
+    paymentMethodLabel: 'طریقہ ادائیگی',
+    methodCash: 'نقد (Cash)',
+    methodBank: 'بینک (Bank)',
+    methodJazzCash: 'جاز کیش (JazzCash)',
+    methodEasyPaisa: 'ایزی پیسہ (EasyPaisa)',
+    editPaymentTitle: 'ادائیگی میں ترمیم',
+    roznamchaReferenceNote: 'روزنامچہ اندراجات (صرف حوالہ — کھاتہ میزان متاثر نہیں ہوتا)',
 
     salesSlipTitle: 'فروخت پرچی',
     purchaseSlipTitle: 'خرید پرچی',
@@ -454,6 +662,7 @@ export const TRANSLATIONS: Record<AppLanguage, Translations> = {
     reportWeightTab: 'وزن رپورٹ',
     reportCommissionTab: 'کمیشن رپورٹ',
     reportMizanTab: 'ٹوٹل میزان رپورٹ',
+    reportRoznamchaTab: 'روزنامچہ رپورٹ',
     fromDate: 'از تاریخ',
     toDate: 'تا تاریخ',
     exportCsv: 'CSV ڈاؤن لوڈ',
@@ -465,7 +674,7 @@ export const TRANSLATIONS: Record<AppLanguage, Translations> = {
     totalGrossSum: 'کل رقم',
     totalCommissionSum: 'کل کمیشن',
     totalMizanSum: 'ٹوٹل میزان',
-    reportsDisclaimer: 'فروخت اور خرید کے اعداد و شمار الگ الگ دکھائے گئے ہیں؛ اصل منافع اخراجات اور اسٹاک کے مطابق مختلف ہوتا ہے۔',
+    reportsDisclaimer: 'فروخت، خرید اور روزنامچہ کے اعداد و شمار الگ الگ دکھائے گئے ہیں؛ اصل منافع اخراجات اور اسٹاک کے مطابق مختلف ہوتا ہے۔',
 
     settingsTitle: 'دکان اور حساب کتاب کی سیٹنگز',
     reopenWizard: 'سیٹ اپ وزرڈ دوبارہ چلائیں',
@@ -474,7 +683,7 @@ export const TRANSLATIONS: Record<AppLanguage, Translations> = {
     businessSettingsSection: 'اجناس اور اقسام',
     receiptSettingsSection: 'پرچی اور حوالہ نمبر',
     appearanceSection: 'تھیم اور زبان',
-    backupSection: 'بیک اپ اور ڈیٹا محفوظی',
+    backupSection: 'آٹو بیک اپ، گوگل ڈرائیو اور ڈیٹا محفوظی',
     commissionPercentLabel: 'کمیشن شرح (%)',
     commissionModeLabel: 'کمیشن کہاں لاگو ہو',
     commModeSales: 'صرف فروخت میں',
@@ -513,16 +722,146 @@ export const TRANSLATIONS: Record<AppLanguage, Translations> = {
     languageLabel: 'زبان منتخب کریں',
     urduLang: 'اردو',
     englishLang: 'English',
-    deviceStorageNotice: 'آپ کا تمام ڈیٹا صرف اسی ڈیوائس پر محفوظ ہے۔ موبائل تبدیل کرنے یا براؤزر ڈیٹا صاف کرنے سے پہلے JSON بیک اپ ضرور ڈاؤن لوڈ کریں۔',
-    exportJsonBtn: 'JSON بیک اپ ڈاؤن لوڈ کریں',
+    deviceStorageNotice: 'آپ کا تمام ڈیٹا صرف اسی ڈیوائس پر محفوظ ہے۔ موبائل تبدیل کرنے یا براؤزر ڈیٹا صاف کرنے سے پہلے JSON یا Google Drive بیک اپ ضرور لیں۔',
+    exportJsonBtn: 'ڈیوائس پر JSON بیک اپ ڈاؤن لوڈ',
     importJsonBtn: 'JSON بیک اپ فائل منتخب کریں',
     backupPreviewTitle: 'بیک اپ فائل کا جائزہ',
-    backupRecordsSummary: 'فروخت ریکارڈز، خرید ریکارڈز اور کھاتہ اندراجات پائے گئے۔',
+    backupRecordsSummary: 'فروخت، خرید، کھاتہ اور روزنامچہ اندراجات پائے گئے۔',
     mergeBackupBtn: 'موجودہ ڈیٹا میں ضم کریں (Merge)',
     replaceBackupBtn: 'پرانا ڈیٹا بدل دیں (Replace)',
     backupInvalidError: 'یہ بیک اپ فائل درست نہیں ہے۔',
     backupSuccessMsg: 'بیک اپ کامیابی سے بحال ہو گیا۔',
     settingsSavedNote: 'تبدیلیاں فوری طور پر محفوظ اور نئے حسابات پر لاگو ہو جاتی ہیں۔ پرانے محفوظ ریکارڈز اپنی اصل رقم پر برقرار رہتے ہیں۔',
+    continueWithGoogle: 'گوگل کے ساتھ لاگ ان کریں',
+    guestModeLabel: 'مہمان (آف لائن موڈ)',
+    guestSkipHint: 'لاگ ان کے بغیر بھی تمام کھاتہ اور روزنامچہ مکمل آف لائن کام کرتا ہے۔',
+    signOutBtn: 'سائن آؤٹ',
+    googleLoginNotConfigured: 'Google login abhi configure nahi hua',
+    signedInAs: 'گوگل اکاؤنٹ سے لاگ ان',
+    googleAccountSection: 'گوگل اکاؤنٹ اور کلاؤڈ بیک اپ',
+    autoBackupFreqLabel: 'آٹو بیک اپ شیڈول (واٹس ایپ جیسا)',
+    freqDaily: 'روزانہ',
+    freqWeekly: 'ہفتہ وار',
+    freqMonthly: 'ماہانہ',
+    freqNever: 'بند',
+    backupNowBtn: 'ابھی بیک اپ لیں',
+    lastBackupLabel: 'آخری بیک اپ',
+    backupSizeLabel: 'فائل سائز',
+    neverBackedUp: 'ابھی تک کوئی بیک اپ نہیں لیا گیا',
+    localSnapshotsTitle: 'آخری 3 لوکل آٹو بیک اپ',
+    restoreSnapshotBtn: 'بحال کریں',
+    driveBackupToggle: 'Google Drive par backup',
+    driveBackupNowBtn: 'Drive par backup karen',
+    driveRestoreBtn: 'Drive se restore karen',
+    driveBackupsListTitle: 'گوگل ڈرائیو پر موجود بیک اپ فائلیں',
+    driveFolderLabel: 'فولڈر: Mandi Khata Backups',
+    noDriveBackups: 'گوگل ڈرائیو پر کوئی بیک اپ فائل نہیں ملی۔',
+    driveOfflineQueued: 'انٹرنیٹ بند ہے — آن لائن آتے ہی خودکار بیک اپ ہو جائے گا۔',
+    driveConnectedBadge: 'ڈرائیو منسلک ہے',
+    driveReconnectHint: 'گوگل ڈرائیو کی اجازت تازہ کرنے کے لیے دوبارہ گوگل سائن ان کریں۔',
+    driveRestorePromptTitle: 'گوگل ڈرائیو بیک اپ دستیاب ہے',
+    driveRestorePromptDesc: 'آپ کا پرانا بیک اپ مل گیا ہے',
+    restoreLaterBtn: 'بعد میں',
+    shopLocationSection: 'دکان کی لوکیشن (اختیاری)',
+    googleMapsLinkLabel: 'گوگل میپس لنک (اختیاری)',
+    useCurrentLocationBtn: 'Meri current location le lo',
+    locationLoading: 'لوکیشن حاصل کی جا رہی ہے...',
+    locationSavedMsg: 'دکان کی لوکیشن محفوظ ہو گئی',
+    locationErrorMsg: 'لوکیشن حاصل نہیں ہو سکی؛ آپ گوگل میپس لنک پیسٹ کر سکتے ہیں۔',
+    openInMapsBtn: 'گوگل میپس میں کھولیں / راستہ دیکھیں',
+    showMapOnReceiptToggle: 'پرچی کے نیچے میپس لنک دکھائیں',
+
+    aboutTitle: 'ایپ کے بارے میں اور مدد',
+    developerTeamLabel: 'Designing Team: EagleX',
+    developerContactPitch: 'Agar aap ko bhi apni shop/business ke liye app ya website banwani ho, ya is app mein koi technical help chahiye, to WhatsApp par rabta karen:',
+    whatsappContactBtn: 'واٹس ایپ پر رابطہ (0301-5730577)',
+    callContactBtn: 'کال کریں (0301-5730577)',
+    footerCredit: 'Designed & Developed by Team EagleX',
+    shopProfileCardTitle: 'آپ کی دکان کی تفصیل',
+    tutorialTitle: 'سیکھیں — مکمل اردو گائیڈ',
+    tutorialSubtitle: 'منڈی کھاتہ، خرید و فروخت، روزنامچہ اور بیک اپ استعمال کرنے کا آسان طریقہ',
+    tutorialVideoTitle: 'ویڈیو ٹیوٹوریل',
+    videoComingSoon: 'Video jald aa raha hai',
+    faqTitle: 'عام پوچھے جانے والے سوالات (FAQ)',
+    premiumTitle: 'پریمیم AI حساب ایجنٹ',
+    premiumSubtitle: 'اردو میں کاروباری سوالات پوچھیں یا فروخت/خرید کا ڈرافٹ تیار کروائیں',
+    aiDailySummaryTitle: 'آج کا خلاصہ',
+    aiGenerateSummaryBtn: 'آج کا AI خلاصہ تیار کریں',
+    aiPremiumComingSoon: 'Premium jald aa raha hai',
+    aiDraftConfirmTitle: 'مجوزہ اندراج (محفوظ کرنے سے پہلے چیک کریں)',
+    aiConfirmSaveBtn: 'تصدیق کر کے محفوظ کریں',
+    aiDiscardDraftBtn: 'مسترد کریں',
+    aiChatPlaceholder: 'مثال: آج کتنی فروخت ہوئی؟ یا احمد سے 5000 کلو گندم 4200 ریٹ پر خریدی...',
+    aiSendBtn: 'بھیجیں',
+    aiDisabledByAdmin: 'یہ فیچر ابھی ایڈمن کی طرف سے بند ہے۔',
+    adminTitle: 'ڈویلپر ایڈمن پینل',
+    adminConnectSessionBtn: 'Firestore ایڈمن سیشن جوڑیں',
+    adminAdsSection: 'ڈیش بورڈ اشتہارات (Ads)',
+    adminAddAdBtn: 'نیا اشتہار شامل کریں',
+    adminAdTitle: 'اشتہار کا عنوان',
+    adminAdDesc: 'تفصیل',
+    adminAdBtnText: 'بٹن کا ٹیکسٹ',
+    adminAdBtnLink: 'بٹن لنک یا WhatsApp URL',
+    adminAdImgUrl: 'تصویر کا لنک یا اپلوڈ',
+    adminAdActive: 'فعال (Active)',
+    adminAdStartDate: 'شروع تاریخ',
+    adminAdEndDate: 'آخری تاریخ',
+    adminAppConfigSection: 'ٹیوٹوریل اور پریمیم AI کنٹرول',
+    adminYoutubeUrlLabel: 'YouTube ٹیوٹوریل لنک',
+    adminAiMasterToggle: 'پریمیم AI موڈ فعال کریں',
+    adminAiDailyToggle: 'ڈیش بورڈ پر "آج کا خلاصہ" کارڈ',
+    adminAiDraftToggle: 'AI ڈرافٹ انٹری فیچر',
+    adminAiChatToggle: 'AI چیٹ اسسٹنٹ',
+    sponsoredLabel: 'اشتہار',
+    dismissAd: 'بند کریں',
+
+    roznamchaTitle: 'روزنامچہ (بہی کھاتہ)',
+    roznamchaSubtitle: 'دکان کے روزانہ پیسے آنے اور جانے کا دو صفحاتی کاغذی بہی رجسٹر',
+    roznamchaLeftTitle: 'جمع / آمدن (پیسے آئے)',
+    roznamchaRightTitle: 'بنام / خرچ (پیسے گئے)',
+    roznamchaAddInBtn: '+ آمدن شامل کریں',
+    roznamchaAddOutBtn: '+ خرچ شامل کریں',
+    pichlaBaqiLabel: 'پچھلا باقی',
+    aajKulAayeLabel: 'آج کی کل آمدنی',
+    aajKulGayeLabel: 'آج کا کل خرچہ',
+    aajKaBaqiLabel: 'آج کا باقی',
+    kulBaqiLabel: 'کل باقی',
+    openingBalanceLabel: 'پہلے دن کا ابتدائی بیلنس (روپے)',
+    tafseelLabel: 'تفصیل',
+    tafseelPlaceholder: 'مثلاً رقم وصول ہوئی، منجی خریدی، تیل خریدا، پلے دار مزدوری...',
+    categoryLabel: 'کیٹیگری',
+    optionalPartyLabel: 'پارٹی / فرد کا نام (اختیاری)',
+    roznamchaDayView: 'ڈائری ویو (دو صفحے)',
+    roznamchaSingleListView: 'تفصیل ویو (جدول)',
+    roznamchaMonthView: 'ماہانہ ویو',
+    roznamchaSearchTab: 'تلاش و فلٹر',
+    roznamchaCategoryReport: 'کیٹیگری رپورٹ',
+    roznamchaSettingsTab: 'کیٹیگریز اور ابتدائی بیلنس',
+    addCategoryBtn: 'کیٹیگری شامل کریں',
+    inCategoriesTitle: 'آمدنی کی کیٹیگریز',
+    outCategoriesTitle: 'خرچہ کی کیٹیگریز',
+    deleteRoznamchaConfirm: 'کیا آپ واقعی روزنامچہ کا یہ اندراج حذف کرنا چاہتے ہیں؟',
+    roznamchaPrevDay: 'پچھلا دن',
+    roznamchaNextDay: 'اگلا دن',
+    roznamchaGoToday: 'آج',
+    runningBalanceCol: 'باقی رقم',
+
+    quickNotesTitle: 'فوری نوٹس اور آج کے ریٹ',
+    quickNotesSubtitle: 'کچے نوٹس · رسمی کھاتہ یا روزنامچہ میں شامل نہیں ہوتے',
+    quickNotesPlaceholder: 'مثال: گندم آج کا ریٹ 4350، یا حاجی اکرم کو کال کرنی ہے...',
+    quickNotesAddBtn: 'نوٹ شامل کریں',
+    quickNotesTagReminder: 'یاددہانی',
+    quickNotesTagTask: 'کام',
+    quickNotesTagRate: 'آج کا ریٹ',
+    quickNotesFilterAll: 'سب',
+    quickNotesFilterActive: 'باقی',
+    quickNotesFilterRates: 'ریٹ',
+    quickNotesClearDone: 'مکمل صاف کریں',
+    quickNotesEmpty: 'ابھی کوئی کچا نوٹ نہیں — آج کا ریٹ، پینڈنگ کام یا یاددہانی لکھیں۔',
+    quickNotesPinLabel: 'اوپر پن کریں',
+    quickNotesUnpinLabel: 'پن ہٹائیں',
+    quickNotesDoneLabel: 'مکمل نشان زد کریں',
+    quickNotesUndoLabel: 'دوبارہ فعال کریں',
   },
   en: {
     appTitle: 'Mandi Khata',
@@ -534,6 +873,12 @@ export const TRANSLATIONS: Record<AppLanguage, Translations> = {
     navCalculators: 'Calculators',
     navReports: 'Reports',
     navSettings: 'Settings',
+    navRoznamcha: 'Roznamcha',
+    navAbout: 'About / Help',
+    navTutorial: 'Tutorial',
+    navPremium: 'Premium AI',
+    navAdmin: 'Admin',
+    moreMenu: 'More',
     installApp: 'Install App',
     installIOS: 'Install on iOS',
     iosGuideTitle: 'Install on iPhone / iPad',
@@ -573,8 +918,8 @@ export const TRANSLATIONS: Record<AppLanguage, Translations> = {
     ownerLabel: 'Owner',
     ownerName: 'Full Name',
     ownerMobile: 'Mobile Number',
-    step3Title: 'Shop Address',
-    step3Desc: 'Enter full shop address and city/district for slip footers.',
+    step3Title: 'Shop Address & Location',
+    step3Desc: 'Enter full shop address, city/district, and optional Google Maps location.',
     addressLabel: 'Full Address',
     cityLabel: 'City / District',
     step4Title: 'Logo & Signature',
@@ -611,6 +956,15 @@ export const TRANSLATIONS: Record<AppLanguage, Translations> = {
     kgUnit: 'KG',
     maundUnit: 'Maund',
     bagsUnit: 'Bags',
+    totalViewLabel: 'Total View',
+    detailViewLabel: 'Detail View',
+    tapToViewDetails: 'Tap to expand detailed entries',
+    summaryViewLabel: 'Summary (Totals)',
+    detailedViewLabel: 'Detailed (Entries)',
+    todayRoznamchaCard: "Today's Roznamcha",
+    roznamchaAaye: 'Cash In',
+    roznamchaGaye: 'Cash Out',
+    roznamchaKulBaqi: 'Closing Balance',
 
     salesRegisterTitle: 'Sales Register',
     purchaseRegisterTitle: 'Purchase Register',
@@ -654,8 +1008,8 @@ export const TRANSLATIONS: Record<AppLanguage, Translations> = {
     errRateInvalid: 'Please enter a valid rate per maund.',
     savedToast: 'Record saved successfully',
 
-    khataTitle: 'Party Khata Ledger',
-    khataSubtitle: 'Party-wise transactions, advances, payments, and running balances',
+    khataTitle: 'Party Khata & Payments',
+    khataSubtitle: 'Party-wise totals, paid/received amounts, remaining balances, and due dates',
     searchPartyPlaceholder: 'Search party name...',
     noPartiesYet: 'No party accounts yet. Parties appear automatically once you save a sale or purchase.',
     totalBusiness: 'Total Business',
@@ -663,7 +1017,7 @@ export const TRANSLATIONS: Record<AppLanguage, Translations> = {
     payableLabel: 'Payable',
     settledLabel: 'Settled',
     backToParties: 'All Parties',
-    addPaymentEntry: 'Add Cash / Bank Entry',
+    addPaymentEntry: 'Add Payment (Jama / Banam)',
     jamaOption: 'Jama (Received)',
     banamOption: 'Banam (Paid)',
     amountRs: 'Amount (Rs)',
@@ -675,6 +1029,28 @@ export const TRANSLATIONS: Record<AppLanguage, Translations> = {
     colJama: 'Jama (Credit)',
     colBalance: 'Balance',
     deletePaymentConfirm: 'Are you sure you want to delete this payment entry?',
+    kulRaqamLabel: 'Total Amount',
+    wasoolPaidLabel: 'Paid / Received',
+    baqiRaqamLabel: 'Remaining',
+    statusClear: 'CLEAR',
+    statusPartial: 'PARTIAL',
+    statusPending: 'PENDING',
+    statusOverdue: 'OVERDUE',
+    filterAll: 'All',
+    filterPending: 'With Balance',
+    filterClear: 'Clear',
+    filterOverdue: 'Overdue',
+    wadaDateLabel: 'Promised Due Date',
+    partyMobileLabel: 'Party Mobile Number',
+    whatsappReminderBtn: 'WhatsApp Reminder',
+    addPhoneForReminderMsg: 'Add the party mobile number above before sending a WhatsApp reminder.',
+    paymentMethodLabel: 'Method',
+    methodCash: 'Cash',
+    methodBank: 'Bank',
+    methodJazzCash: 'JazzCash',
+    methodEasyPaisa: 'EasyPaisa',
+    editPaymentTitle: 'Edit Payment',
+    roznamchaReferenceNote: 'Roznamcha References (Info only — does not affect Khata balance)',
 
     salesSlipTitle: 'Sales Slip',
     purchaseSlipTitle: 'Purchase Slip',
@@ -711,6 +1087,7 @@ export const TRANSLATIONS: Record<AppLanguage, Translations> = {
     reportWeightTab: 'Weight Report',
     reportCommissionTab: 'Commission',
     reportMizanTab: 'Total Mizan',
+    reportRoznamchaTab: 'Roznamcha',
     fromDate: 'From Date',
     toDate: 'To Date',
     exportCsv: 'Export CSV',
@@ -722,7 +1099,7 @@ export const TRANSLATIONS: Record<AppLanguage, Translations> = {
     totalGrossSum: 'Gross Amount',
     totalCommissionSum: 'Commission',
     totalMizanSum: 'Total Mizan',
-    reportsDisclaimer: 'Sales and Purchase totals are reported separately and never subtracted to imply net profit.',
+    reportsDisclaimer: 'Sales, Purchase, and Roznamcha totals are reported separately and never mixed to imply net profit.',
 
     settingsTitle: 'Shop & Calculation Settings',
     reopenWizard: 'Re-open Setup Wizard',
@@ -731,7 +1108,7 @@ export const TRANSLATIONS: Record<AppLanguage, Translations> = {
     businessSettingsSection: 'Crops & Varieties',
     receiptSettingsSection: 'Receipt & Reference Series',
     appearanceSection: 'Theme & Language',
-    backupSection: 'Backup & Restore',
+    backupSection: 'Auto Backup, Google Drive & Local Data',
     commissionPercentLabel: 'Commission Percentage (%)',
     commissionModeLabel: 'Apply Commission In',
     commModeSales: 'Sales Only',
@@ -770,15 +1147,145 @@ export const TRANSLATIONS: Record<AppLanguage, Translations> = {
     languageLabel: 'Interface Language',
     urduLang: 'اردو',
     englishLang: 'English',
-    deviceStorageNotice: 'Your data is stored only on this device. Take a JSON backup before changing phone or clearing browser data.',
+    deviceStorageNotice: 'Your data is stored only on this device. Take a JSON or Google Drive backup before changing phone or clearing browser data.',
     exportJsonBtn: 'Download JSON Backup',
     importJsonBtn: 'Select JSON Backup File',
     backupPreviewTitle: 'Backup File Preview',
-    backupRecordsSummary: 'sales records, purchase records, and ledger entries found.',
+    backupRecordsSummary: 'sales, purchase, ledger, and roznamcha entries found.',
     mergeBackupBtn: 'Merge with Existing Data',
     replaceBackupBtn: 'Replace All Data',
     backupInvalidError: 'The selected file is not a valid Mandi Khata backup.',
     backupSuccessMsg: 'Backup restored successfully.',
     settingsSavedNote: 'Changes apply immediately to all future calculations. Saved old records retain their original values.',
+    continueWithGoogle: 'Continue with Google',
+    guestModeLabel: 'Guest (Offline Mode)',
+    guestSkipHint: 'You can use the entire Khata & Roznamcha offline without signing in.',
+    signOutBtn: 'Sign Out',
+    googleLoginNotConfigured: 'Google login is not configured yet.',
+    signedInAs: 'Signed in with Google',
+    googleAccountSection: 'Google Account & Cloud Backup',
+    autoBackupFreqLabel: 'Auto Backup Schedule (WhatsApp-style)',
+    freqDaily: 'Daily',
+    freqWeekly: 'Weekly',
+    freqMonthly: 'Monthly',
+    freqNever: 'Never',
+    backupNowBtn: 'Back up now',
+    lastBackupLabel: 'Last Backup',
+    backupSizeLabel: 'Backup Size',
+    neverBackedUp: 'Never backed up yet',
+    localSnapshotsTitle: 'Last 3 Local Auto-Snapshots',
+    restoreSnapshotBtn: 'Restore',
+    driveBackupToggle: 'Google Drive Backup',
+    driveBackupNowBtn: 'Back up to Drive',
+    driveRestoreBtn: 'Restore from Drive',
+    driveBackupsListTitle: 'Available Google Drive Backups',
+    driveFolderLabel: 'Folder: Mandi Khata Backups',
+    noDriveBackups: 'No backup files found in Google Drive.',
+    driveOfflineQueued: 'Offline — backup queued and will upload automatically when online.',
+    driveConnectedBadge: 'Drive Connected',
+    driveReconnectHint: 'Sign in with Google again to authorize Google Drive access.',
+    driveRestorePromptTitle: 'Google Drive Backup Found',
+    driveRestorePromptDesc: 'Your previous backup was found',
+    restoreLaterBtn: 'Later',
+    shopLocationSection: 'Shop Location (Optional)',
+    googleMapsLinkLabel: 'Google Maps Link (Optional)',
+    useCurrentLocationBtn: 'Use Current Location',
+    locationLoading: 'Capturing GPS location...',
+    locationSavedMsg: 'Shop location saved',
+    locationErrorMsg: 'Could not detect GPS location; you can paste a Google Maps link instead.',
+    openInMapsBtn: 'Open in Google Maps / Directions',
+    showMapOnReceiptToggle: 'Show Maps link on printed receipt footer',
+
+    aboutTitle: 'About & Help',
+    developerTeamLabel: 'Designing Team: EagleX',
+    developerContactPitch: 'If you also want an app or website built for your shop or business, or need technical help with this app, contact us on WhatsApp:',
+    whatsappContactBtn: 'Contact on WhatsApp (0301-5730577)',
+    callContactBtn: 'Call (0301-5730577)',
+    footerCredit: 'Designed & Developed by Team EagleX',
+    shopProfileCardTitle: 'Your Shop Profile',
+    tutorialTitle: 'Tutorial & User Guide',
+    tutorialSubtitle: 'Complete step-by-step guide to using Mandi Khata, Roznamcha, Party Ledger & Backups',
+    tutorialVideoTitle: 'Video Tutorial',
+    videoComingSoon: 'Tutorial video is coming soon',
+    faqTitle: 'Frequently Asked Questions',
+    premiumTitle: 'Premium AI Hisaab Agent',
+    premiumSubtitle: 'Ask business questions in Urdu/English or prepare draft entries from natural text',
+    aiDailySummaryTitle: "Today's AI Summary",
+    aiGenerateSummaryBtn: 'Generate Daily Summary',
+    aiPremiumComingSoon: 'Premium is coming soon',
+    aiDraftConfirmTitle: 'Draft Entry (Review Before Saving)',
+    aiConfirmSaveBtn: 'Confirm & Save Entry',
+    aiDiscardDraftBtn: 'Discard',
+    aiChatPlaceholder: 'Example: How much did we sell today? Or bought 5000 kg wheat from Ahmed at 4200...',
+    aiSendBtn: 'Send',
+    aiDisabledByAdmin: 'This Premium feature is currently turned off by the developer.',
+    adminTitle: 'Developer Admin Panel',
+    adminConnectSessionBtn: 'Connect Firestore Admin Session',
+    adminAdsSection: 'Dashboard Promotional Banners',
+    adminAddAdBtn: 'Add Promotional Ad',
+    adminAdTitle: 'Ad Title',
+    adminAdDesc: 'Description',
+    adminAdBtnText: 'Button Text',
+    adminAdBtnLink: 'Button Link / WhatsApp URL',
+    adminAdImgUrl: 'Image URL or Upload',
+    adminAdActive: 'Active',
+    adminAdStartDate: 'Start Date',
+    adminAdEndDate: 'End Date',
+    adminAppConfigSection: 'Tutorial & Premium AI Controls',
+    adminYoutubeUrlLabel: 'YouTube Tutorial URL',
+    adminAiMasterToggle: 'Enable Premium AI Mode',
+    adminAiDailyToggle: 'Dashboard Daily AI Summary Card',
+    adminAiDraftToggle: 'AI Draft Entry Builder',
+    adminAiChatToggle: 'AI Hisaab Chat',
+    sponsoredLabel: 'Sponsored',
+    dismissAd: 'Dismiss',
+
+    roznamchaTitle: 'Roznamcha (Two-Page Cash Diary)',
+    roznamchaSubtitle: 'Traditional two-page Urdu paper bahi: Aamad on the right, Kharch on the left',
+    roznamchaLeftTitle: 'JAMA / AAMAD (Cash In)',
+    roznamchaRightTitle: 'NAAM / KHARCH (Cash Out)',
+    roznamchaAddInBtn: '+ Add Aamad (In)',
+    roznamchaAddOutBtn: '+ Add Kharch (Out)',
+    pichlaBaqiLabel: 'Pichla Baqi (Opening)',
+    aajKulAayeLabel: "Today's Aamdani",
+    aajKulGayeLabel: "Today's Kharcha",
+    aajKaBaqiLabel: "Today's Net",
+    kulBaqiLabel: 'Kul Baqi (Closing)',
+    openingBalanceLabel: 'Day-1 Opening Balance (Rs)',
+    tafseelLabel: 'Tafseel / Description',
+    tafseelPlaceholder: 'e.g., Cash received, Munji purchased, Diesel, Labour...',
+    categoryLabel: 'Category',
+    optionalPartyLabel: 'Party / Person Name (Optional)',
+    roznamchaDayView: 'Diary View (2 Pages)',
+    roznamchaSingleListView: 'Detail View (Table)',
+    roznamchaMonthView: 'Month View',
+    roznamchaSearchTab: 'Search & Filter',
+    roznamchaCategoryReport: 'Category Report',
+    roznamchaSettingsTab: 'Categories & Opening',
+    addCategoryBtn: 'Add Category',
+    inCategoriesTitle: 'Aamdani (In) Categories',
+    outCategoriesTitle: 'Kharcha (Out) Categories',
+    deleteRoznamchaConfirm: 'Are you sure you want to delete this Roznamcha entry?',
+    roznamchaPrevDay: 'Previous Day',
+    roznamchaNextDay: 'Next Day',
+    roznamchaGoToday: 'Today',
+    runningBalanceCol: 'Baqi Raqam',
+
+    quickNotesTitle: 'Quick Notes & Today Rates',
+    quickNotesSubtitle: 'Informal scratchpad — kept separate from formal khata & roznamcha',
+    quickNotesPlaceholder: 'e.g., Wheat today 4350/maund, or call Haji Akram for bardana...',
+    quickNotesAddBtn: 'Add Note',
+    quickNotesTagReminder: 'Reminder',
+    quickNotesTagTask: 'Task',
+    quickNotesTagRate: 'Market Rate',
+    quickNotesFilterAll: 'All',
+    quickNotesFilterActive: 'Pending',
+    quickNotesFilterRates: 'Rates',
+    quickNotesClearDone: 'Clear Done',
+    quickNotesEmpty: 'No quick notes yet — jot down market rates, pending tasks, or reminders.',
+    quickNotesPinLabel: 'Pin note',
+    quickNotesUnpinLabel: 'Unpin note',
+    quickNotesDoneLabel: 'Mark done',
+    quickNotesUndoLabel: 'Mark pending',
   },
 };

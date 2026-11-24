@@ -22,6 +22,10 @@ export interface AppSettings {
   owners: OwnerInfo[];
   address: string;
   city: string;
+  shopMapLink?: string;
+  shopLat?: number | null;
+  shopLng?: number | null;
+  showMapLinkOnReceipt?: boolean;
 
   // Calculation Settings
   commissionPercent: number;
@@ -127,6 +131,7 @@ export interface PurchaseRecord extends BaseTradeRecord {
 export type TradeRecord = SaleRecord | PurchaseRecord;
 
 export type LedgerEntryDirection = 'jama' | 'banam'; // jama = received/credit, banam = paid/debit
+export type PaymentMethod = 'Cash' | 'Bank' | 'JazzCash' | 'EasyPaisa';
 
 export interface PartyPayment {
   id: string;
@@ -134,13 +139,72 @@ export interface PartyPayment {
   partyName: string;
   direction: LedgerEntryDirection;
   amount: number;
+  method?: PaymentMethod;
   note: string;
   createdAt: string;
+  updatedAt?: string;
 }
+
+export interface PartyMeta {
+  partyName: string;
+  phone: string;
+  wadaDate: string; // YYYY-MM-DD
+  notes?: string;
+  updatedAt: string;
+}
+
+export type PartyBalanceStatus = 'CLEAR' | 'PARTIAL' | 'PENDING' | 'OVERDUE';
 
 export interface RefCounters {
   salesNext: number;
   purchaseNext: number;
+}
+
+export type AutoBackupFrequency = 'daily' | 'weekly' | 'monthly' | 'never';
+
+export interface AutoBackupSettings {
+  frequency: AutoBackupFrequency;
+  googleDriveEnabled: boolean;
+  lastBackupAt: string | null;
+  lastBackupSizeBytes: number;
+  lastDriveBackupAt: string | null;
+  lastDriveFileName: string | null;
+  lastDriveFileId: string | null;
+  pendingDriveUpload: boolean;
+}
+
+export type RoznamchaSide = 'in' | 'out';
+
+export interface RoznamchaEntry {
+  id: string;
+  date: string; // YYYY-MM-DD
+  side: RoznamchaSide; // 'in' = JAMA / AAMAD (آئے), 'out' = NAAM / KHARCH (گئے)
+  amount: number;
+  tafseel: string;
+  category: string;
+  partyName?: string;
+  method: PaymentMethod;
+  note?: string;
+  createdAt: string;
+  updatedAt?: string;
+}
+
+export interface RoznamchaSettings {
+  openingBalance: number;
+  inCategories: string[];
+  outCategories: string[];
+}
+
+export type QuickNoteTag = 'reminder' | 'task' | 'rate';
+
+export interface QuickNote {
+  id: string;
+  text: string;
+  tag: QuickNoteTag;
+  done: boolean;
+  pinned: boolean;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface BackupPayload {
@@ -149,10 +213,51 @@ export interface BackupPayload {
   sales: SaleRecord[];
   purchases: PurchaseRecord[];
   ledger: PartyPayment[];
+  partyMeta?: Record<string, PartyMeta>;
+  roznamchaEntries?: RoznamchaEntry[];
+  roznamchaSettings?: RoznamchaSettings;
+  quickNotes?: QuickNote[];
   counters: RefCounters;
   settings: AppSettings;
   theme: ThemeMode;
   language: AppLanguage;
   logo: string | null;
   signature: string | null;
+}
+
+export interface LocalSnapshot {
+  id: string;
+  createdAt: string;
+  sizeBytes: number;
+  payload: BackupPayload;
+}
+
+export interface AdBanner {
+  id: string;
+  title: string;
+  description: string;
+  imageUrl?: string;
+  buttonText: string;
+  buttonLink: string;
+  active: boolean;
+  placement: 'dashboard_top';
+  startDate: string;
+  endDate: string;
+  authorUid?: string;
+}
+
+export interface GlobalAppConfig {
+  tutorialYoutubeUrl: string;
+  aiEnabled: boolean;
+  aiDailySummaryEnabled: boolean;
+  aiDraftEntryEnabled: boolean;
+  aiChatEnabled: boolean;
+}
+
+export interface AuthUserSummary {
+  uid: string;
+  displayName: string | null;
+  email: string | null;
+  photoURL: string | null;
+  emailVerified: boolean;
 }

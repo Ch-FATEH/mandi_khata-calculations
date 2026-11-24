@@ -1,9 +1,10 @@
 import React, { useRef, useState } from 'react';
 import html2canvas from 'html2canvas-pro';
-import { Copy, Download, Printer, Share2, X, Check } from 'lucide-react';
+import { Copy, Download, MapPin, Printer, Share2, X, Check } from 'lucide-react';
 import { AppLanguage, AppSettings, TradeRecord } from '../types/mandi';
 import { Translations } from '../i18n/translations';
 import { formatNumber, formatRs } from '../utils/calculations';
+import { buildShopMapsHref } from './AboutView';
 
 interface ReceiptModalProps {
   record: TradeRecord | null;
@@ -473,8 +474,19 @@ export const ReceiptModal: React.FC<ReceiptModalProps> = ({
             style={{ borderTopColor: '#E5E7EB' }}
             className="mt-6 flex items-end justify-between gap-4 border-t pt-4"
           >
-            <div className="max-w-[65%] text-xs text-slate-600">
+            <div className="max-w-[65%] space-y-1 text-xs text-slate-600">
               {footerAddr && <p className="font-medium leading-relaxed">{footerAddr}</p>}
+              {settings.showMapLinkOnReceipt && buildShopMapsHref(settings) && (
+                <a
+                  href={buildShopMapsHref(settings)!}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 font-bold text-[#0B7D50] underline"
+                >
+                  <MapPin className="h-3 w-3" />
+                  <span>{t.openInMapsBtn}</span>
+                </a>
+              )}
             </div>
 
             {settings.showSignatureOnReceipt && (

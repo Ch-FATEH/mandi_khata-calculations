@@ -1,0 +1,170 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn() &&
+        request.auth.token.email_verified == true &&
+        request.auth.token.email == 'blackhat786hacker@gmail.com';
+    }
+
+    function isValidAd(data) {
+      return data.keys().hasAll([
+          'title',
+          'description',
+          'buttonText',
+          'buttonLink',
+          'active',
+          'placement',
+          'startDate',
+          'endDate',
+          'authorUid',
+          'createdAt',
+          'updatedAt'
+        ]) &&
+        data.keys().hasOnly([
+          'title',
+          'description',
+          'imageUrl',
+          'buttonText',
+          'buttonLink',
+          'active',
+          'placement',
+          'startDate',
+          'endDate',
+          'authorUid',
+          'createdAt',
+          'updatedAt'
+        ]) &&
+        data.authorUid is string &&
+        data.authorUid.size() <= 128 &&
+        data.authorUid == request.auth.uid &&
+        data.title is string &&
+        data.title.size() >= 1 &&
+        data.title.size() <= 120 &&
+        data.description is string &&
+        data.description.size() <= 500 &&
+        (!('imageUrl' in data) || (data.imageUrl is string && data.imageUrl.size() <= 250000)) &&
+        data.buttonText is string &&
+        data.buttonText.size() <= 60 &&
+        data.buttonLink is string &&
+        data.buttonLink.size() <= 500 &&
+        data.active is bool &&
+        data.placement is string &&
+        data.placement == 'dashboard_top' &&
+        data.startDate is string &&
+        data.startDate.size() <= 20 &&
+        data.endDate is string &&
+        data.endDate.size() <= 20 &&
+        data.createdAt is timestamp &&
+        data.updatedAt is timestamp;
+    }
+
+    function isValidAppConfig(data) {
+      return data.keys().hasAll([
+          'tutorialYoutubeUrl',
+          'aiEnabled',
+          'aiDailySummaryEnabled',
+          'aiDraftEntryEnabled',
+          'aiChatEnabled',
+          'updatedByUid',
+          'updatedAt'
+        ]) &&
+        data.keys().hasOnly([
+          'tutorialYoutubeUrl',
+          'aiEnabled',
+          'aiDailySummaryEnabled',
+          'aiDraftEntryEnabled',
+          'aiChatEnabled',
+          'updatedByUid',
+          'updatedAt'
+        ]) &&
+        data.tutorialYoutubeUrl is string &&
+        data.tutorialYoutubeUrl.size() <= 500 &&
+        data.aiEnabled is bool &&
+        data.aiDailySummaryEnabled is bool &&
+        data.aiDraftEntryEnabled is bool &&
+        data.aiChatEnabled is bool &&
+        data.updatedByUid is string &&
+        data.updatedByUid.size() <= 128 &&
+        data.updatedByUid == request.auth.uid &&
+        data.updatedAt is timestamp;
+    }
+
+    match /ads/{adId} {
+      allow get: if isValidId(adId) && (isAdmin() || existing().active == true);
+      allow list: if isAdmin() || resource.data.active == true;
+      allow create: if isAdmin() &&
+        isValidId(adId) &&
+        isValidAd(incoming()) &&
+        incoming().createdAt == request.time &&
+        incoming().updatedAt == request.time;
+      allow update: if isAdmin() &&
+        isValidId(adId) &&
+        isValidAd(incoming()) &&
+        incoming().createdAt == existing().createdAt &&
+        incoming().updatedAt == request.time &&
+        incoming().diff(existing()).affectedKeys().hasOnly([
+          'title',
+          'description',
+          'imageUrl',
+          'buttonText',
+          'buttonLink',
+          'active',
+          'placement',
+          'startDate',
+          'endDate',
+          'authorUid',
+          'updatedAt'
+        ]);
+      allow delete: if isAdmin() && isValidId(adId);
+    }
+
+    match /appConfig/{configId} {
+      allow get: if isValidId(configId) && configId == 'public';
+      allow create: if isAdmin() &&
+        isValidId(configId) &&
+        configId == 'public' &&
+        isValidAppConfig(incoming()) &&
+        incoming().updatedAt == request.time;
+      allow update: if isAdmin() &&
+        isValidId(configId) &&
+        configId == 'public' &&
+        isValidAppConfig(incoming()) &&
+        incoming().updatedAt == request.time &&
+        incoming().diff(existing()).affectedKeys().hasOnly([
+          'tutorialYoutubeUrl',
+          'aiEnabled',
+          'aiDailySummaryEnabled',
+          'aiDraftEntryEnabled',
+          'aiChatEnabled',
+          'updatedByUid',
+          'updatedAt'
+        ]);
+    }
+
+    match /test/{docId} {
+      allow get: if isValidId(docId) && docId == 'connection';
+    }
+  }
+}

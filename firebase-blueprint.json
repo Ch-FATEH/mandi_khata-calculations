@@ -1,0 +1,145 @@
+{
+  "entities": {
+    "AdBanner": {
+      "title": "AdBanner",
+      "description": "Promotional or informational banner managed exclusively by the developer admin and displayed on the app dashboard.",
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120,
+          "description": "Short headline for the banner"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 500,
+          "description": "Banner body description"
+        },
+        "imageUrl": {
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 250000,
+          "description": "Optional https image URL or resized data URL"
+        },
+        "buttonText": {
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 60,
+          "description": "Call-to-action button label"
+        },
+        "buttonLink": {
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 500,
+          "description": "HTTPS URL or WhatsApp link for the button"
+        },
+        "active": {
+          "type": "boolean",
+          "description": "Whether the ad banner is active"
+        },
+        "placement": {
+          "type": "string",
+          "enum": ["dashboard_top"],
+          "description": "Banner placement target"
+        },
+        "startDate": {
+          "type": "string",
+          "maxLength": 20,
+          "description": "Optional YYYY-MM-DD start date"
+        },
+        "endDate": {
+          "type": "string",
+          "maxLength": 20,
+          "description": "Optional YYYY-MM-DD end date"
+        },
+        "authorUid": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "Firebase UID of the admin who wrote the ad"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server creation timestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server update timestamp"
+        }
+      },
+      "required": [
+        "title",
+        "description",
+        "buttonText",
+        "buttonLink",
+        "active",
+        "placement",
+        "startDate",
+        "endDate",
+        "authorUid",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "AppConfig": {
+      "title": "AppConfig",
+      "description": "Developer-controlled global feature flags and tutorial video URL.",
+      "type": "object",
+      "properties": {
+        "tutorialYoutubeUrl": {
+          "type": "string",
+          "maxLength": 500,
+          "description": "YouTube tutorial video URL or embed URL"
+        },
+        "aiEnabled": {
+          "type": "boolean",
+          "description": "Master toggle for Premium Gemini AI features"
+        },
+        "aiDailySummaryEnabled": {
+          "type": "boolean",
+          "description": "Toggle for Dashboard AI daily summary card"
+        },
+        "aiDraftEntryEnabled": {
+          "type": "boolean",
+          "description": "Toggle for AI natural language entry drafting"
+        },
+        "aiChatEnabled": {
+          "type": "boolean",
+          "description": "Toggle for AI Hisaab Agent Q&A"
+        },
+        "updatedByUid": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "Firebase UID of admin who saved the config"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server update timestamp"
+        }
+      },
+      "required": [
+        "tutorialYoutubeUrl",
+        "aiEnabled",
+        "aiDailySummaryEnabled",
+        "aiDraftEntryEnabled",
+        "aiChatEnabled",
+        "updatedByUid",
+        "updatedAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/ads/{adId}": {
+      "schema": { "$ref": "#/entities/AdBanner" },
+      "description": "Active ads visible to all users; full CRUD restricted to verified developer admin."
+    },
+    "/appConfig/{configId}": {
+      "schema": { "$ref": "#/entities/AppConfig" },
+      "description": "Public config document ('public') holding tutorial URL and AI feature toggles; writable only by verified developer admin."
+    }
+  }
+}

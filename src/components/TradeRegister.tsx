@@ -93,6 +93,7 @@ export const TradeRegister: React.FC<TradeRegisterProps> = ({
   const [dateFilter, setDateFilter] = useState<DateFilter>('all');
   const [cropFilter, setCropFilter] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const [historyViewMode, setHistoryViewMode] = useState<'detail' | 'total'>('detail');
   const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null);
 
   const selectedCrop =
@@ -288,6 +289,41 @@ export const TradeRegister: React.FC<TradeRegisterProps> = ({
         return b.createdAt.localeCompare(a.createdAt);
       });
   }, [records, dateFilter, cropFilter, searchQuery]);
+
+  const cropTotals = useMemo(() => {
+    const map = new Map<
+      string,
+      {
+        cropId: string;
+        cropName: string;
+        count: number;
+        netWeight: number;
+        gross: number;
+        commission: number;
+        mizan: number;
+      }
+    >();
+    for (const r of filteredRecords) {
+      const label =
+        language === 'ur' ? r.cropNameUr || r.cropNameEn : r.cropNameEn || r.cropNameUr;
+      const curr = map.get(r.cropId) || {
+        cropId: r.cropId,
+        cropName: label,
+        count: 0,
+        netWeight: 0,
+        gross: 0,
+        commission: 0,
+        mizan: 0,
+      };
+      curr.count += 1;
+      curr.netWeight += r.netWeightKg;
+      curr.gross += r.grossAmount;
+      curr.commission += r.commissionAmount;
+      curr.mizan += r.totalMizan;
+      map.set(r.cropId, curr);
+    }
+    return Array.from(map.values());
+  }, [filteredRecords, language]);
 
   const taxLabel =
     language === 'ur' ? settings.taxLabourLabelUr : settings.taxLabourLabelEn;
@@ -761,28 +797,56 @@ export const TradeRegister: React.FC<TradeRegisterProps> = ({
             {t.historyTitle} (<span className="ltr-num">{filteredRecords.length}</span>)
           </h2>
 
-          {/* Period segmented buttons */}
-          <div className="flex flex-wrap items-center gap-1 rounded-xl bg-slate-200/70 p-1 dark:bg-slate-800">
-            {(['today', 'month', 'year', 'all'] as DateFilter[]).map((df) => (
+          <div className="flex flex-wrap items-center gap-2">
+            {/* Total View vs Detail View toggle */}
+            <div className="flex items-center gap-1 rounded-xl bg-slate-200/70 p-1 dark:bg-slate-800">
               <button
-                key={df}
                 type="button"
-                onClick={() => setDateFilter(df)}
-                className={`min-h-[36px] rounded-lg px-3 py-1 text-xs font-semibold transition ${
-                  dateFilter === df
-                    ? 'bg-white text-[#12452D] shadow-sm dark:bg-slate-900 dark:text-emerald-400'
-                    : 'text-slate-700 hover:text-slate-900 dark:text-slate-300'
+                onClick={() => setHistoryViewMode('total')}
+                className={`min-h-[36px] rounded-lg px-3 py-1 text-xs font-bold transition ${
+                  historyViewMode === 'total'
+                    ? 'bg-[#0B7D50] text-white shadow-sm'
+                    : 'text-slate-700 dark:text-slate-300'
                 }`}
               >
-                {df === 'today'
-                  ? t.today
-                  : df === 'month'
-                    ? t.thisMonth
-                    : df === 'year'
-                      ? t.thisYear
-                      : t.all}
+                {t.totalViewLabel}
               </button>
-            ))}
+              <button
+                type="button"
+                onClick={() => setHistoryViewMode('detail')}
+                className={`min-h-[36px] rounded-lg px-3 py-1 text-xs font-bold transition ${
+                  historyViewMode === 'detail'
+                    ? 'bg-[#0B7D50] text-white shadow-sm'
+                    : 'text-slate-700 dark:text-slate-300'
+                }`}
+              >
+                {t.detailViewLabel}
+              </button>
+            </div>
+
+            {/* Period segmented buttons */}
+            <div className="flex flex-wrap items-center gap-1 rounded-xl bg-slate-200/70 p-1 dark:bg-slate-800">
+              {(['today', 'month', 'year', 'all'] as DateFilter[]).map((df) => (
+                <button
+                  key={df}
+                  type="button"
+                  onClick={() => setDateFilter(df)}
+                  className={`min-h-[36px] rounded-lg px-3 py-1 text-xs font-semibold transition ${
+                    dateFilter === df
+                      ? 'bg-white text-[#12452D] shadow-sm dark:bg-slate-900 dark:text-emerald-400'
+                      : 'text-slate-700 hover:text-slate-900 dark:text-slate-300'
+                  }`}
+                >
+                  {df === 'today'
+                    ? t.today
+                    : df === 'month'
+                      ? t.thisMonth
+                      : df === 'year'
+                        ? t.thisYear
+                        : t.all}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -815,6 +879,38 @@ export const TradeRegister: React.FC<TradeRegisterProps> = ({
         {filteredRecords.length === 0 ? (
           <div className="rounded-2xl border border-slate-200 bg-white p-8 text-center text-sm text-slate-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300">
             {t.noRecordsFound}
+          </div>
+        ) : historyViewMode === 'total' ? (
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {cropTotals.map((row) => (
+              <button
+                key={row.cropId}
+                type="button"
+                onClick={() => {
+                  setCropFilter(row.cropId);
+                  setHistoryViewMode('detail');
+                }}
+                className="rounded-2xl border border-slate-200 bg-white p-4 text-start shadow-sm transition hover:border-[#0B7D50] dark:border-slate-800 dark:bg-slate-900"
+              >
+                <div className="flex items-center justify-between">
+                  <h3 className="text-base font-extrabold text-slate-900 dark:text-slate-100">
+                    {row.cropName}
+                  </h3>
+                  <span className="ltr-num rounded-lg bg-emerald-50 px-2.5 py-0.5 text-xs font-bold text-[#0B7D50] dark:bg-emerald-950 dark:text-emerald-400">
+                    {row.count}
+                  </span>
+                </div>
+                <p className="ltr-num mt-2 text-lg font-extrabold text-[#12452D] dark:text-emerald-300">
+                  {formatRs(row.mizan)}
+                </p>
+                <p className="ltr-num mt-0.5 text-xs text-slate-600 dark:text-slate-300">
+                  {formatNumber(row.netWeight)} KG · {t.commissionLabel}: {formatRs(row.commission)}
+                </p>
+                <p className="mt-1.5 text-[11px] font-semibold text-[#0B7D50] dark:text-emerald-400">
+                  {t.tapToViewDetails}
+                </p>
+              </button>
+            ))}
           </div>
         ) : (
           <div className="grid grid-cols-1 gap-3 md:grid-cols-2">

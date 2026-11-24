@@ -78,16 +78,17 @@ define(['./workbox-afac4cd2'], (function (workbox) { 'use strict';
    */
   workbox.precacheAndRoute([{
     "url": "/index.html",
-    "revision": "0.71fp0a5i3r8"
+    "revision": "0.ns6607t9fn8"
   }], {});
   workbox.cleanupOutdatedCaches();
   workbox.registerRoute(new workbox.NavigationRoute(workbox.createHandlerBoundToURL("/index.html"), {
-    allowlist: [/^\/$/]
+    allowlist: [/^\/$/],
+    denylist: [/^\/api\//]
   }));
   workbox.registerRoute(/^https:\/\/fonts\.googleapis\.com\/.*/i, new workbox.CacheFirst({
     "cacheName": "google-fonts-cache",
     plugins: [new workbox.ExpirationPlugin({
-      maxEntries: 12,
+      maxEntries: 16,
       maxAgeSeconds: 31536000
     }), new workbox.CacheableResponsePlugin({
       statuses: [0, 200]
@@ -96,7 +97,16 @@ define(['./workbox-afac4cd2'], (function (workbox) { 'use strict';
   workbox.registerRoute(/^https:\/\/fonts\.gstatic\.com\/.*/i, new workbox.CacheFirst({
     "cacheName": "gstatic-fonts-cache",
     plugins: [new workbox.ExpirationPlugin({
-      maxEntries: 20,
+      maxEntries: 30,
+      maxAgeSeconds: 31536000
+    }), new workbox.CacheableResponsePlugin({
+      statuses: [0, 200]
+    })]
+  }), 'GET');
+  workbox.registerRoute(/^https:\/\/cdn\.jsdelivr\.net\/.*/i, new workbox.CacheFirst({
+    "cacheName": "cdn-nastaleeq-fonts-cache",
+    plugins: [new workbox.ExpirationPlugin({
+      maxEntries: 8,
       maxAgeSeconds: 31536000
     }), new workbox.CacheableResponsePlugin({
       statuses: [0, 200]
